@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 
 namespace StudentManagementSystem
 {
@@ -29,6 +30,11 @@ namespace StudentManagementSystem
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
+
+            //JSON Serializer
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddNewtonsoftJson(options => 
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddControllers();
         }
